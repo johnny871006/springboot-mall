@@ -1,6 +1,5 @@
 package org.example.springbootmall.service.impl;
 
-import org.example.springbootmall.constant.ProductCategory;
 import org.example.springbootmall.dao.ProductDao;
 import org.example.springbootmall.dto.ProductQueryParams;
 import org.example.springbootmall.dto.ProductRequest;
