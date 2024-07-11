@@ -1,5 +1,6 @@
 package org.example.springbootmall.service;
 
+import org.example.springbootmall.constant.ProductCategory;
 import org.example.springbootmall.dto.ProductRequest;
 import org.example.springbootmall.model.Product;
 
@@ -7,7 +8,7 @@ import java.util.List;
 
 public interface ProductService {
 
-    List<Product> getProducts();
+    List<Product> getProducts(ProductCategory category,String search);
 
     Product getByProductId(Integer productId);
 
