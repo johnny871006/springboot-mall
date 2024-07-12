@@ -24,6 +24,42 @@ public class UserDaoImpl implements UserDao {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
+    public User getUserById(Integer userId) {
+
+        String sql = "SELECT user_id,user_name,email,password,created_date,last_modified_date " +
+                "FROM user WHERE user_id = :userId";
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", userId);
+
+        List<User> userList = namedParameterJdbcTemplate.query(sql, map, new UserRowMapper());
+
+        if (!userList.isEmpty()) {
+            return userList.getFirst();
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public User getUserByEmail(String email) {
+
+        String sql = "SELECT user_id,user_name,email,password,created_date,last_modified_date " +
+                "FROM user WHERE email = :email";
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("email", email);
+
+        List<User> userList = namedParameterJdbcTemplate.query(sql, map, new UserRowMapper());
+
+        if (!userList.isEmpty()) {
+            return userList.getFirst();
+        } else {
+            return null;
+        }
+    }
+
+    @Override
     public Integer createUser(UserRequest userRequest) {
 
         String sql = "INSERT INTO user(user_name,email,password,created_date,last_modified_date) " +
@@ -46,23 +82,5 @@ public class UserDaoImpl implements UserDao {
 
         return userId;
 
-    }
-
-    @Override
-    public User getUserById(Integer userId) {
-
-        String sql = "SELECT user_id,user_name,email,password,created_date,last_modified_date " +
-                "FROM user WHERE user_id = :userId";
-
-        Map<String, Object> map = new HashMap<>();
-        map.put("userId", userId);
-
-        List<User> userList = namedParameterJdbcTemplate.query(sql, map, new UserRowMapper());
-
-        if (!userList.isEmpty()) {
-            return userList.getFirst();
-        } else {
-            return null;
-        }
     }
 }

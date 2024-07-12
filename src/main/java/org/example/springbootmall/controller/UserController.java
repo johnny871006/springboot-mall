@@ -1,5 +1,6 @@
 package org.example.springbootmall.controller;
 
+import jakarta.validation.Valid;
 import org.example.springbootmall.dto.UserRequest;
 import org.example.springbootmall.model.User;
 import org.example.springbootmall.service.UserService;
@@ -17,7 +18,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/user/register")
-    public ResponseEntity<User> register(@RequestBody UserRequest userRequest){
+    public ResponseEntity<User> register(@RequestBody @Valid UserRequest userRequest){
 
         Integer userId = userService.register(userRequest);
 

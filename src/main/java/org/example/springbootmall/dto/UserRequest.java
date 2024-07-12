@@ -1,9 +1,18 @@
 package org.example.springbootmall.dto;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
 public class UserRequest {
 
+    @NotBlank
     String userName;
+
+    @NotBlank
+    @Email
     String email;
+
+    @NotBlank
     String password;
 
     public String getUserName() {
