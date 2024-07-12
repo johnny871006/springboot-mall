@@ -81,6 +81,5 @@ public class UserDaoImpl implements UserDao {
         int userId = keyHolder.getKey().intValue();
 
         return userId;
-
     }
 }

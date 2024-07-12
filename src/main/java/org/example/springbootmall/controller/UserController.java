@@ -1,6 +1,7 @@
 package org.example.springbootmall.controller;
 
 import jakarta.validation.Valid;
+import org.example.springbootmall.dto.UserLoginRequest;
 import org.example.springbootmall.dto.UserRequest;
 import org.example.springbootmall.model.User;
 import org.example.springbootmall.service.UserService;
@@ -18,12 +19,20 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/user/register")
-    public ResponseEntity<User> register(@RequestBody @Valid UserRequest userRequest){
+    public ResponseEntity<User> register(@RequestBody @Valid UserRequest userRequest) {
 
         Integer userId = userService.register(userRequest);
 
         User user = userService.getUserById(userId);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
+    }
+
+    @PostMapping("/user/login")
+    public ResponseEntity<User> login(@RequestBody @Valid UserLoginRequest userLoginRequest) {
+
+        User user = userService.login(userLoginRequest);
+
+        return ResponseEntity.status(HttpStatus.OK).body(user);
     }
 }
