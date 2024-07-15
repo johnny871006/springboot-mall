@@ -27,7 +27,7 @@ public class UserDaoImpl implements UserDao {
     public User getUserById(Integer userId) {
 
         String sql = "SELECT user_id,user_name,email,password,created_date,last_modified_date " +
-                "FROM user WHERE user_id = :userId";
+                "FROM `user` WHERE user_id = :userId";
 
         Map<String, Object> map = new HashMap<>();
         map.put("userId", userId);
@@ -45,7 +45,7 @@ public class UserDaoImpl implements UserDao {
     public User getUserByEmail(String email) {
 
         String sql = "SELECT user_id,user_name,email,password,created_date,last_modified_date " +
-                "FROM user WHERE email = :email";
+                "FROM `user` WHERE email = :email";
 
         Map<String, Object> map = new HashMap<>();
         map.put("email", email);
@@ -62,7 +62,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public Integer createUser(UserRequest userRequest) {
 
-        String sql = "INSERT INTO user(user_name,email,password,created_date,last_modified_date) " +
+        String sql = "INSERT INTO `user`(user_name,email,password,created_date,last_modified_date) " +
                 "VALUES(:userName,:email,:password,:createDate,:lastModifiedDate)";
 
         Map<String, Object> map = new HashMap<>();
