@@ -1,5 +1,6 @@
 package org.example.springbootmall.util;
 
+import org.example.springbootmall.model.Order;
 import org.example.springbootmall.model.Product;
 
 import java.util.List;
@@ -9,7 +10,7 @@ public class Page<T>{
     private Integer limit;
     private Integer offset;
     private Integer total;
-    private List<Product> results;
+    private List<T> results;
 
     public Integer getLimit() {
         return limit;
@@ -35,11 +36,11 @@ public class Page<T>{
         this.total = total;
     }
 
-    public List<Product> getResults() {
+    public List<T> getResults() {
         return results;
     }
 
-    public void setResults(List<Product> results) {
+    public void setResults(List<T> results) {
         this.results = results;
     }
 }

@@ -1,22 +1,52 @@
 package org.example.springbootmall.controller;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import org.example.springbootmall.dto.CreateOrderRequest;
+import org.example.springbootmall.dto.OrderQueryParams;
 import org.example.springbootmall.model.Order;
 import org.example.springbootmall.service.OrderService;
+import org.example.springbootmall.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class OrderController {
 
     @Autowired
     private OrderService orderService;
+
+    @GetMapping("/user/{userId}/orders")
+    public ResponseEntity<Page<Order>> getOrders(
+            @PathVariable Integer userId,
+            @RequestParam(defaultValue = "10") @Max(100) @Min(0) Integer limit,
+            @RequestParam(defaultValue = "0") @Min(0) Integer offset
+    ){
+        OrderQueryParams orderQueryParams = new OrderQueryParams();
+        orderQueryParams.setUserId(userId);
+        orderQueryParams.setLimit(limit);
+        orderQueryParams.setOffset(offset);
+
+        // 取得orderList
+        List<Order> orderList = orderService.getOrders(orderQueryParams);
+
+        // 取得 order 總數
+        Integer total = orderService.countOrder(orderQueryParams);
+
+        Page<Order> page = new Page<>();
+        page.setLimit(limit);
+        page.setOffset(offset);
+        page.setTotal(total);
+        page.setResults(orderList);
+
+        return ResponseEntity.status(HttpStatus.OK).body(page);
+
+    }
 
     @PostMapping("/user/{userId}/order")
     public ResponseEntity<?> createOrder(@PathVariable Integer userId,
