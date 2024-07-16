@@ -48,7 +48,7 @@ public class OrderController {
 
     }
 
-    @PostMapping("/user/{userId}/order")
+    @PostMapping("/user/{userId}/orders")
     public ResponseEntity<?> createOrder(@PathVariable Integer userId,
                                          @RequestBody @Valid CreateOrderRequest createOrderRequest){
 
